@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.util.HashMap;
+import java.util.concurrent.*;
+
 /**
  * @author yuanhang.liu@tcl.com
  * @description
@@ -8,6 +11,11 @@ package com.example.demo;
 public class Main {
 
     public static int[][] matrixPlus(int[][] left, int[][] right){
+
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(10, 10, 10, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>());
+
+
 
         if (left.length == 0 || right.length == 0 || left[0].length != right.length){
             throw new IllegalArgumentException("");
