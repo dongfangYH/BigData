@@ -26,7 +26,7 @@ public class LastKNode {
      * @return
      */
     public static ListNode getKthFromEnd1(ListNode head, int k) {
-        LinkedList<ListNode> queue = new LinkedList<>();
+        LinkedList<ListNode> queue = new LinkedList<ListNode>();
         ListNode curr = head;
         while (curr != null){
             queue.add(curr);

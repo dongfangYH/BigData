@@ -19,6 +19,7 @@
         <module>web</module>
         <module>hive</module>
         <module>hbase</module>
+        <module>net</module>
     </modules>
     <packaging>pom</packaging>
 
