@@ -1,5 +1,6 @@
 package com.example.sortalgo;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -48,7 +49,7 @@ public class QuickSort {
         }
 
         doQuickSort(source, start, piv - 1);
-        doQuickSort(source, piv, end);
+        doQuickSort(source, piv+1 , end);
     }
 
     public static void main(String[] args){
@@ -59,7 +60,7 @@ public class QuickSort {
                 examples[i] = r.nextInt(100);
             }
             quickSort(examples);
-            System.out.println("---");
+            System.out.println(Arrays.toString(examples));
         }
 
     }

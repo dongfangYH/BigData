@@ -20,6 +20,7 @@
         <module>hive</module>
         <module>hbase</module>
         <module>net</module>
+        <module>hadoop</module>
     </modules>
     <packaging>pom</packaging>
 
