@@ -26,4 +26,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public List<Integer> findAllUserId() {
         return userMapper.getAllIds();
     }
+
+    @Override
+    public User findById(Integer id) {
+        return userMapper.selectById(id);
+    }
 }

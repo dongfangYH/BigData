@@ -1,0 +1,9 @@
+syntax="proto2";
+
+package com.example.net;
+
+message Resp{
+  required int32 type=1;
+  required string content=2;
+  optional string script=3;
+}

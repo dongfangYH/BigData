@@ -8,4 +8,6 @@ import java.util.List;
 public interface UserService extends IService<User> {
 
     List<Integer> findAllUserId();
+
+    User findById(Integer id);
 }
