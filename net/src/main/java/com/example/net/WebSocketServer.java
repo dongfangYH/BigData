@@ -37,7 +37,7 @@ public class WebSocketServer {
                             ch.pipeline().addLast("wsHandler", new WebSocketHandler());
                         }
                     });
-            ChannelFuture future = b.bind(9001).sync();
+            ChannelFuture future = b.bind(7001).sync();
             future.channel().closeFuture().sync();
         }finally {
             boss.shutdownGracefully();
