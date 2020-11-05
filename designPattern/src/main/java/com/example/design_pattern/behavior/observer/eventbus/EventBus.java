@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 public class EventBus {
 
     private Executor executor;
+
     private ObserverRegistry registry = new ObserverRegistry();
 
     public EventBus(Executor executor) {

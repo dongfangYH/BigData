@@ -1,7 +1,5 @@
 package com.example.design_pattern.behavior.observer.eventbus;
 
-import com.example.design_pattern.behavior.observer.Observer;
-
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,6 +10,7 @@ public class ObserverRegistry {
 
     /**
      * 注册表
+     * ClassA -> Set(objectA1, objectA2, objectA3)
      */
     private final ConcurrentMap<Class<?>, CopyOnWriteArraySet<ObserverAction>> registry =
             new ConcurrentHashMap<>();
