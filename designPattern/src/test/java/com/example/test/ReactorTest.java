@@ -1,7 +1,7 @@
 package com.example.test;
 
 import org.junit.Test;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Sinks;
 
 /**
  * @author yuanhang.liu@tcl.com
