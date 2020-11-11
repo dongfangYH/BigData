@@ -6,7 +6,8 @@ import java.util.concurrent.Executors;
 
 /**
  * @author yuanhang.liu@tcl.com
- * @description
+ * @description command pattern uses an object to wrap original request so that it can be handle by different types of
+ *  command.
  * @date 2020-11-11 09:55
  **/
 public class Main {
