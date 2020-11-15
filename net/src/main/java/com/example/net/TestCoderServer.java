@@ -3,23 +3,14 @@ package com.example.net;
 import com.example.net.codec.MsgpackDecoder;
 import com.example.net.codec.MsgpackEncoder;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
-import io.netty.handler.codec.protobuf.ProtobufDecoder;
-import io.netty.handler.codec.protobuf.ProtobufEncoder;
-import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
-import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import org.msgpack.MessagePack;
-
-import java.util.List;
 
 /**
  * @author yuanhang.liu@tcl.com
@@ -41,14 +32,14 @@ public class TestCoderServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel channel) throws Exception {
-                            channel.pipeline().addLast(new ProtobufVarint32FrameDecoder());
-                            channel.pipeline().addLast(new ProtobufDecoder(ReqOuterClass.Req.getDefaultInstance()));
-                            channel.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
-                            channel.pipeline().addLast(new ProtobufEncoder());
-                            //channel.pipeline().addLast("frameDecoder", new LengthFieldBasedFrameDecoder(65535, 0, 2, 0,2));
-                            //channel.pipeline().addLast("msgPackDecoder", new MsgpackDecoder());
-                            //channel.pipeline().addLast("frameEncoder", new LengthFieldPrepender(2));
-                            //channel.pipeline().addLast("msgPackEncoder", new MsgpackEncoder());
+                            //channel.pipeline().addLast(new ProtobufVarint32FrameDecoder());
+                            //channel.pipeline().addLast(new ProtobufDecoder(ReqOuterClass.Req.getDefaultInstance()));
+                            //channel.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
+                            //channel.pipeline().addLast(new ProtobufEncoder());
+                            channel.pipeline().addLast("frameDecoder", new LengthFieldBasedFrameDecoder(65535, 0, 2, 0, 2));
+                            channel.pipeline().addLast("msgPackDecoder", new MsgpackDecoder(Message.class));
+                            channel.pipeline().addLast("frameEncoder", new LengthFieldPrepender(2));
+                            channel.pipeline().addLast("msgPackEncoder", new MsgpackEncoder());
                             channel.pipeline().addLast("serverHandler", new TestCoderServerHandler());
                         }
                     });
@@ -66,13 +57,17 @@ public class TestCoderServer {
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-            ReqOuterClass.Req req = (ReqOuterClass.Req) msg;
-            System.out.println("receive client request, " + req.toString());
+           // ReqOuterClass.Req req = (ReqOuterClass.Req) msg;
+            Message message = (Message) msg;
+            System.out.println("receive client request, " + message.toString());
 
-            RespOuterClass.Resp resp = RespOuterClass.Resp.newBuilder()
+            /*RespOuterClass.Resp resp = RespOuterClass.Resp.newBuilder()
                     .setType(1)
                     .setContent("server response.")
-                    .build();
+                    .build();*/
+            Response resp = new Response();
+            resp.setType(1);
+            resp.setContent("content from server.");
 
             ctx.write(resp);
         }

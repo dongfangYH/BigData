@@ -7,6 +7,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 
 /**
  * @author yuanhang.liu@tcl.com
@@ -15,7 +17,13 @@ import io.netty.handler.logging.LoggingHandler;
  **/
 public class EchoServer {
     public static void main(String[] args) throws Exception{
+
+        /**
+         * 相当于线程池
+         */
         EventLoopGroup accepterGroup = new NioEventLoopGroup(1);
+
+
         EventLoopGroup ioGroup = new NioEventLoopGroup(2);
 
         try{
@@ -32,12 +40,20 @@ public class EchoServer {
                         }
                     });
             // 通过bind启动服务
-            ChannelFuture f = b.bind(7077).sync();
+            ChannelFuture f = b.bind(7077)
+                    .sync(); //Waits for this future until it is done
             //阻塞主线程，直到网络服务关闭
-            f.channel().closeFuture().sync();
+            //f.channel().closeFuture().sync();
+            f.channel().closeFuture().addListener(new GenericFutureListener<Future<? super Void>>() {
+                @Override
+                public void operationComplete(Future<? super Void> future) throws Exception {
+                    accepterGroup.shutdownGracefully();
+                    ioGroup.shutdownGracefully();
+                }
+            });
         }finally {
-            accepterGroup.shutdownGracefully();
-            ioGroup.shutdownGracefully();
+            //accepterGroup.shutdownGracefully();
+            //ioGroup.shutdownGracefully();
         }
     }
 }

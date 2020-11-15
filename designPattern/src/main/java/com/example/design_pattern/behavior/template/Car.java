@@ -1,4 +1,4 @@
-package com.example.design_pattern.template;
+package com.example.design_pattern.behavior.template;
 
 /**
  * 定义一个汽车模板

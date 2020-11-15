@@ -1,4 +1,4 @@
-package com.example.design_pattern.template;
+package com.example.design_pattern.behavior.template;
 
 /**
  * 奔驰汽车模型

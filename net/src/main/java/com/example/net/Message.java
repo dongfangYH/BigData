@@ -14,8 +14,6 @@ public class Message {
     private String content;
     private String extra;
     private String signature;
-    private List<String> tag;
-
     public String getId() {
         return id;
     }
@@ -56,13 +54,6 @@ public class Message {
         this.signature = signature;
     }
 
-    public List<String> getTag() {
-        return tag;
-    }
-
-    public void setTag(List<String> tag) {
-        this.tag = tag;
-    }
 
     @Override
     public String toString() {
@@ -72,7 +63,6 @@ public class Message {
                 ", content='" + content + '\'' +
                 ", extra='" + extra + '\'' +
                 ", signature='" + signature + '\'' +
-                ", tag=" + tag +
                 '}';
     }
 }
