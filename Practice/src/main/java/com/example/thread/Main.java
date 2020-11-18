@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     public static void main(String[] args) throws Exception{
-
         DelayQueue<DelayObject> delayQueue = new DelayQueue();
 
         for (int i = 1; i <= 10; i++){
