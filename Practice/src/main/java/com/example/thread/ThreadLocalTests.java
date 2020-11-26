@@ -2,6 +2,7 @@ package com.example.thread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class ThreadLocalTests {
 
@@ -13,7 +14,7 @@ public class ThreadLocalTests {
         final ExecutorService threadPool = Executors.newFixedThreadPool(1000);
 
         Thread.sleep(10000L);
-        for (int i = 0; i < 1000; i++){
+        for (int i = 0; i < 10000; i++){
             threadPool.submit(() -> {
                 byte[] bytes = new byte[1024 * 1024];
                 threadLocal1.set(bytes);
