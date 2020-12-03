@@ -2,14 +2,15 @@ package com.example.kafka;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 import static org.apache.kafka.clients.CommonClientConfigs.CLIENT_ID_CONFIG;
 import static org.apache.kafka.clients.producer.ProducerConfig.*;
@@ -17,13 +18,13 @@ import static org.apache.kafka.clients.producer.ProducerConfig.*;
 /**
  * @author yuanhang.liu@tcl.com
  * @description
- * @date 2020-04-18 17:44
+ * @date 2020-12-03 13:34
  **/
-public class ProducerTest {
+public class Producer1 {
 
     public static final String BROKER_LIST = "localhost:9092";
-    public static final String TOPIC = "event-source";
-    public static final String[] phones = {"iphone xs", "iphone 11", "s20 ultra", "P40+", "Mate 30 Pro"};
+    public static final String TOPIC = "mobile-event";
+    public static final String[] packageName = {"Gallery", "Launcher", "TCL+", "WeChat", "MailBoss"};
     public static final int batch = 100;
 
 
@@ -49,44 +50,27 @@ public class ProducerTest {
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(config);
         Gson gson = new Gson();
         Random random = new Random();
-        int errorCount = 0;
-        int count = 0;
-
-        Integer LastPartition = null;
-        Long LastOffset = null;
-        int id = 0;
 
         for (;;){
 
-            if (errorCount > 1000) break;
-
             JsonObject object = new JsonObject();
-            object.addProperty("id", ++id);
-            object.addProperty("timestamp", System.currentTimeMillis());
-            object.addProperty("phone", phones[random.nextInt(phones.length)]);
+            object.addProperty("id", UUID.randomUUID().toString());
+            object.addProperty("happenTime", System.currentTimeMillis());
+            object.addProperty("eventId", packageName[random.nextInt(packageName.length)]);
+            object.addProperty("version", (random.nextInt(10) % (random.nextInt(5) + 1)) + 1);
             String value = gson.toJson(object);
-            Integer key = id++;
 
-            ProducerRecord<String, String> record = new ProducerRecord<>("rddTest", key % 3, key+"", value);
+            ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC,  value);
             Future<RecordMetadata> result = producer.send(record);
 
             try {
-                if (++count % batch == 0){
-                    RecordMetadata recordMetadata = result.get(1000, TimeUnit.MILLISECONDS);
-                    LastPartition = recordMetadata.partition();
-                    LastOffset = recordMetadata.offset();
-                }
-                Thread.sleep(100);
+                Thread.sleep(10);
             } catch (Exception e) {
                 e.printStackTrace();
-                errorCount++;
             }
         }
 
-        System.out.println("topic: " + TOPIC + " ,partition: " + LastPartition + " ,offset: " + LastOffset);
-
         //关闭，释放资源
-        producer.close();
+        //producer.close();
     }
-
 }

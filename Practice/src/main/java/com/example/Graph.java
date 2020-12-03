@@ -173,7 +173,8 @@ public class Graph {
         node5.addRoute(14, node3);
         node5.addRoute(10, node4);
 
-        List<Line> lines = grap.buildAllPossibleLine();
-        lines.forEach(Line::printLine);
+        //List<Line> lines = grap.buildAllPossibleLine();
+        //lines.forEach(Line::printLine);
+        grap.findBestLine().printLine();
     }
 }
