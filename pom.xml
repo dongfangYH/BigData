@@ -21,6 +21,7 @@
         <module>hbase</module>
         <module>net</module>
         <module>hadoop</module>
+        <module>flink</module>
     </modules>
     <packaging>pom</packaging>
 

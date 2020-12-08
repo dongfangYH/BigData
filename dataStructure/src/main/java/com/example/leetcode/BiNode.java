@@ -61,7 +61,6 @@ public class BiNode {
         //遍历到最左节点
         TreeNode RootNode = convertBiNode(root.left);
 
-
         if (RootNode == null)
             //细节，如果返回值为null,证明已经到最左节点了，将最左节点的值赋给RootNode
             RootNode = root;
