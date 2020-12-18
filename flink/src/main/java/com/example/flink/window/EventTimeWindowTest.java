@@ -65,6 +65,7 @@ public class EventTimeWindowTest {
             private final long maxLag = 5000;
 
             /**
+             * 周期性地生成watermarks
              * 前最新事件时间产生Watermarks时间戳，记为X，进入到Flink系统中的数据事件时间，记为Y，
              * 如果Y < X，则代表Watermark X时间戳之前的所有事件均已到达，
              * 同时Window的End Time大于Watermark，则触发窗口计算结果并输出
@@ -73,7 +74,7 @@ public class EventTimeWindowTest {
             @Nullable
             @Override
             public Watermark getCurrentWatermark() {
-                return new Watermark(currentTimestamp - maxLag > System.currentTimeMillis() ? System.currentTimeMillis() : currentTimestamp - maxLag);
+                return new Watermark(currentTimestamp - maxLag);
             }
 
             /**

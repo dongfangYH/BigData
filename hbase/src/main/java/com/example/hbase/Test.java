@@ -17,12 +17,8 @@ public class Test {
 
     public static void main(String[] args) throws Exception{
         Configuration conf = new Configuration();
-        conf.set("hbase.zookeeper.quorum", "localhost");
+        //conf.set("hbase.zookeeper.quorum", "localhost");
         Connection connection = ConnectionFactory.createConnection(conf);
-        Table test = connection.getTable(TableName.valueOf("test"));
 
-        Put put = new Put(Bytes.toBytes("row001"));
-        put.addColumn(Bytes.toBytes("cf1"), Bytes.toBytes("name"), Bytes.toBytes("xiaoming"));
-        test.put(put);
     }
 }
