@@ -38,7 +38,7 @@ public class UserController {
     private static final Semaphore semaphore = new Semaphore(10);
 
     @PostMapping("/user/add")
-    public BaseResponse addUser(@RequestBody UserDto userDto){
+    public BaseResponse addUser(@RequestBody UserDto userDto) {
         User user = new User();
         BeanCopier copier = BeanCopier.create(UserDto.class, User.class, false);
         copier.copy(userDto, user, null);
@@ -49,11 +49,11 @@ public class UserController {
     }
 
     @GetMapping("/user/{uid}/info")
-    public BaseResponse getUserInfo(@PathVariable Integer uid){
+    public BaseResponse getUserInfo(@PathVariable Integer uid) {
 
         boolean exist = booleanFilter.exist(uid);
 
-        if (exist){
+        if (exist) {
             System.out.println("BOOLEAN 过滤器命中.......");
             ValueOperations<String, String> valueOps = stringRedisTemplate.opsForValue();
             String cacheKey = REDIS_USER_CACHE_KEY + uid;
@@ -61,21 +61,21 @@ public class UserController {
 
             User user = null;
 
-            if (null == data){
+            if (null == data) {
                 boolean acquire = semaphore.tryAcquire();
-                if (acquire){
-                    try{
+                if (acquire) {
+                    try {
                         user = userService.getById(uid);
-                        valueOps.set(cacheKey, JSON.toJSONString(user),  10, TimeUnit.SECONDS);
+                        valueOps.set(cacheKey, JSON.toJSONString(user), 10, TimeUnit.SECONDS);
                         System.out.println("从数据库获取.......");
-                    }finally {
+                    } finally {
                         semaphore.release();
                     }
-                }else {
+                } else {
                     return Response.error();
                 }
 
-            }else {
+            } else {
                 user = JSON.parseObject(data, User.class);
                 System.out.println("从缓存获取.......");
             }

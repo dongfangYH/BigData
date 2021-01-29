@@ -35,15 +35,15 @@ public class WebfluxApplication {
 
 
     @Bean("handler")
-    Handler downloadHandler(){
+    Handler downloadHandler() {
         return new Handler();
     }
 
     @Bean
     RouterFunction<ServerResponse> home() {
-        return route().GET("/", request -> ok().body(fromValue("server port: " + serverPort )))
-                      .GET("/download", accept(MediaType.ALL), handler::handleDownload)
-                      .build();
+        return route().GET("/", request -> ok().body(fromValue("server port: " + serverPort)))
+                .GET("/download", accept(MediaType.ALL), handler::handleDownload)
+                .build();
     }
 
     public static void main(String[] args) {
@@ -53,15 +53,15 @@ public class WebfluxApplication {
     private class Handler {
 
         public Mono<ServerResponse> handleDownload(ServerRequest request) {
-                String secret = "google.com";
-                long exp = (System.currentTimeMillis()/1000) + 300;
-                String path = "/static/30c1cf9801d2402dbf309c242837b41d.apk";
-                String encodeStr = Base64Utils.encodeToUrlSafeString(
-                        DigestUtils.md5Digest((secret + path + exp).getBytes(Charset.forName("UTF-8")))
-                );
+            String secret = "google.com";
+            long exp = (System.currentTimeMillis() / 1000) + 300;
+            String path = "/static/30c1cf9801d2402dbf309c242837b41d.apk";
+            String encodeStr = Base64Utils.encodeToUrlSafeString(
+                    DigestUtils.md5Digest((secret + path + exp).getBytes(Charset.forName("UTF-8")))
+            );
 
-                String content = "<a href=http://"+host+"/static/30c1cf9801d2402dbf309c242837b41d.apk?st="+encodeStr+"&e="+exp+">WeComics.apk</a>";
-                return ok().contentType(MediaType.TEXT_HTML).body(fromValue(content));
+            String content = "<a href=http://" + host + "/static/30c1cf9801d2402dbf309c242837b41d.apk?st=" + encodeStr + "&e=" + exp + ">WeComics.apk</a>";
+            return ok().contentType(MediaType.TEXT_HTML).body(fromValue(content));
         }
     }
 

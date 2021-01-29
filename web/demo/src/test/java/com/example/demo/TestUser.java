@@ -24,7 +24,7 @@ public class TestUser {
     private UserService userService;
 
     @Test
-    public void addUser(){
+    public void addUser() {
         User user = new User();
         user.setUserName("xiaoming");
         user.setSex(1);

@@ -1,5 +1,6 @@
 package com.example.hbase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellScanner;
@@ -101,6 +102,22 @@ public class HBaseUtil {
             byte[] valueBytes = result.getValue(Bytes.toBytes("cf"), Bytes.toBytes("name"));
             System.out.println(Bytes.toString(valueBytes));
         }
+    }
+
+    public static void scan(Table table, String startRow, String endRow, Filter filter) throws Exception{
+        Scan scan = new Scan();
+        scan.setCaching(1000);
+        if (StringUtils.isNotBlank(startRow)){
+            scan.withStartRow(Bytes.toBytes(startRow));
+        }
+        if (StringUtils.isNotBlank(endRow)){
+            scan.withStopRow(Bytes.toBytes(endRow));
+        }
+        if (filter != null){
+            scan.setFilter(filter);
+        }
+
+        table.getScanner(scan);
     }
 
     public static void main(String[] args) throws Exception{

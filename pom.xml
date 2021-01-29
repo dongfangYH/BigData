@@ -22,6 +22,7 @@
         <module>net</module>
         <module>hadoop</module>
         <module>flink</module>
+        <module>statefulfun</module>
     </modules>
     <packaging>pom</packaging>
 

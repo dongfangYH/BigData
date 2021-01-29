@@ -10,7 +10,7 @@ import lombok.Data;
  **/
 @Data
 @TableName(value = "t_user")
-public class User extends BaseModel<User>{
+public class User extends BaseModel<User> {
 
     private String userName;
     private Integer sex;

@@ -85,7 +85,7 @@ public class EventTimeWindowTest {
              */
             @Override
             public long extractTimestamp(PhoneEvent phoneEvent, long l) {
-                long eventTime = phoneEvent.getTimestamp();
+                long eventTime = phoneEvent.getEventTime();
                 currentTimestamp = Math.max(currentTimestamp, eventTime);
                 return eventTime;
             }

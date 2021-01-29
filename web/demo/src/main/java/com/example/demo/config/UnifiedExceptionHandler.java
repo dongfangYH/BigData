@@ -24,7 +24,7 @@ public class UnifiedExceptionHandler {
 
     @ExceptionHandler(value = BusinessException.class)
     @ResponseBody
-    public ErrorResponse handleBusinessException(BaseException e){
+    public ErrorResponse handleBusinessException(BaseException e) {
         log.error(e.getMessage(), e);
         return new ErrorResponse(e.getResponseEnum().getCode(), e.getMessage());
     }
@@ -52,7 +52,7 @@ public class UnifiedExceptionHandler {
 
     @ExceptionHandler(value = BaseException.class)
     @ResponseBody
-    public ErrorResponse handleBaseException(BaseException e){
+    public ErrorResponse handleBaseException(BaseException e) {
         log.error(e.getMessage(), e);
         return new ErrorResponse(e.getResponseEnum().getCode(), e.getMessage());
     }
@@ -61,7 +61,7 @@ public class UnifiedExceptionHandler {
             Exception.class
     })
     @ResponseBody
-    public ErrorResponse handleServerException(Exception e){
+    public ErrorResponse handleServerException(Exception e) {
         log.error(e.getMessage(), e);
         return Response.error();
     }

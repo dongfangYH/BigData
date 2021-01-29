@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class TestRedis {
 
     @Test
-    public void testDealyQueue() throws Exception{
+    public void testDealyQueue() throws Exception {
 
         URLClassLoader loader = new URLClassLoader(new URL[]{new URL("file:/soft/jdk/jre/lib/rt.jar")}, null);
 
@@ -57,20 +57,20 @@ public class TestRedis {
 
 
     @Test
-    public void testLua(){
+    public void testLua() {
         Jedis jedis = new Jedis("127.0.0.1", 6379);
         StringBuilder scriptBuilder = new StringBuilder();
         scriptBuilder.append("if (redis.call('exists', KEYS[1]) == 0) then ")
-                         .append("redis.call('hset', KEYS[1], ARGV[2], 1); ")
-                         .append("redis.call('pexpire', KEYS[1], ARGV[1]); ")
-                         .append("return nil; ")
-                     .append("end; ")
-            .append("if (redis.call('hexists', KEYS[1], ARGV[2]) == 1) then ")
+                .append("redis.call('hset', KEYS[1], ARGV[2], 1); ")
+                .append("redis.call('pexpire', KEYS[1], ARGV[1]); ")
+                .append("return nil; ")
+                .append("end; ")
+                .append("if (redis.call('hexists', KEYS[1], ARGV[2]) == 1) then ")
                 .append("redis.call('hincrby', KEYS[1], ARGV[2], 1); ")
                 .append("redis.call('pexpire', KEYS[1], ARGV[1]); ")
                 .append("return nil; ")
-            .append("end; ")
-            .append("return redis.call('pttl', KEYS[1]); ");
+                .append("end; ")
+                .append("return redis.call('pttl', KEYS[1]); ");
         String script = scriptBuilder.toString();
         System.out.println(script);
         Object result = jedis.eval(script, 1, "aaa", "aaa");

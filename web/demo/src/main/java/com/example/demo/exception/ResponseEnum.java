@@ -14,8 +14,7 @@ public enum ResponseEnum implements BusinessExceptionAssert {
     ARGUMENT_NULL(7002, "null argument expected."),
     INVALID_ARGUMENT(7003, "invalid arguments."),
     NOT_EQUAL(7004, "arguments not equal."),
-    ASSERT_EQUAL(7005, "arguments equal.")
-    ;
+    ASSERT_EQUAL(7005, "arguments equal.");
 
     private int code;
     private String message;

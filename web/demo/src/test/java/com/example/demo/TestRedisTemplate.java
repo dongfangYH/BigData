@@ -23,7 +23,7 @@ public class TestRedisTemplate {
     private StringRedisTemplate stringRedisTemplate;
 
     @Test
-    public void testPipeline(){
+    public void testPipeline() {
         List<Object> l = stringRedisTemplate.executePipelined((RedisCallback<Long>) redisConnection -> {
             RedisListCommands listCmd = redisConnection.listCommands();
             listCmd.lPush("aaa".getBytes(), "aaa".getBytes());
@@ -35,7 +35,7 @@ public class TestRedisTemplate {
     }
 
     @Test
-    public void testMulti(){
+    public void testMulti() {
         String key = "test";
         List<Object> result = stringRedisTemplate.execute(new RedisCallback<List<Object>>() {
             @Override

@@ -21,7 +21,7 @@ public class NacosController {
 
     @SentinelResource
     @GetMapping("/nacos/get")
-    public String get(){
+    public String get() {
         return nacosService.getResult(userLocalCache);
     }
 }

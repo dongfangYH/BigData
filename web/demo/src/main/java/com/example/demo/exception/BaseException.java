@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseException extends RuntimeException{
+public class BaseException extends RuntimeException {
     private IResponseEnum responseEnum;
     private Object[] args;
     private String message;

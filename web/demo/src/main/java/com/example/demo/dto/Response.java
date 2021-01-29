@@ -14,29 +14,30 @@ import static com.example.demo.exception.ResponseEnum.SUCCESS;
  **/
 public class Response {
 
-    public static <T> BaseResponse success(){
+    public static <T> BaseResponse success() {
         return success(null, SUCCESS.getMessage());
     }
 
-    public static <T> BaseResponse success(T data){
+    public static <T> BaseResponse success(T data) {
         return success(data, SUCCESS.getMessage());
     }
 
     /**
      * 返回成功结果
+     *
      * @param data
      * @param <T>
      * @return
      */
-    public static <T> BaseResponse success(T data, String message){
+    public static <T> BaseResponse success(T data, String message) {
         return new CommonResponse<T>(SUCCESS.getCode(), message, data);
     }
 
-    public static ErrorResponse error(String message){
+    public static ErrorResponse error(String message) {
         return new ErrorResponse(RESOURCE_NOT_FOUND.getCode(), message);
     }
 
-    public static ErrorResponse error(){
+    public static ErrorResponse error() {
         return new ErrorResponse(RESOURCE_NOT_FOUND.getCode(), RESOURCE_NOT_FOUND.getMessage());
     }
 }

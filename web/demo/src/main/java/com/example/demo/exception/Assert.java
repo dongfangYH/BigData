@@ -10,6 +10,7 @@ public interface Assert {
 
     /**
      * 创建异常
+     *
      * @param args
      * @return
      */
@@ -19,6 +20,7 @@ public interface Assert {
 
     /**
      * 创建异常
+     *
      * @param t
      * @param args
      * @return

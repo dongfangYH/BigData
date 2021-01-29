@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class NacosService {
 
-    public String getResult(boolean b){
+    public String getResult(boolean b) {
         if (b)
             return "success!";
         else

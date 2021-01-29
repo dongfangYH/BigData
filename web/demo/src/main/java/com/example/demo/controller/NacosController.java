@@ -13,8 +13,8 @@ public class NacosController {
     private boolean userLocalCache;
 
     @GetMapping("/nacos/get")
-    public String get(){
-        return ""+userLocalCache;
+    public String get() {
+        return "" + userLocalCache;
     }
 
 }

@@ -12,9 +12,9 @@ import java.nio.charset.Charset;
  **/
 public class Test {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         String secret = "google.com";
-        long exp = (System.currentTimeMillis()/1000) + 300;
+        long exp = (System.currentTimeMillis() / 1000) + 300;
         String encodeStr = Base64Utils.encodeToUrlSafeString(DigestUtils.md5Digest((secret + "30c1cf9801d2402dbf309c242837b41d.apk" + exp).getBytes(Charset.forName("UTF-8"))));
         System.out.println(encodeStr);
     }

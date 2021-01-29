@@ -8,7 +8,7 @@ import lombok.Getter;
  * @date 2020-06-08 11:08
  **/
 @Getter
-public class CommonResponse<T> extends BaseResponse{
+public class CommonResponse<T> extends BaseResponse {
 
     private T data;
 
