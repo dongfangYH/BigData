@@ -8,21 +8,16 @@
     <artifactId>BusyBuzz</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>Practice</module>
-        <module>testFtp</module>
+        <module>practice</module>
         <module>kafka</module>
-        <module>dataStructure</module>
         <module>spark</module>
         <module>scala</module>
-        <module>sortAlgo</module>
-        <module>designPattern</module>
         <module>web</module>
         <module>hive</module>
         <module>hbase</module>
         <module>net</module>
         <module>hadoop</module>
         <module>flink</module>
-        <module>statefulfun</module>
     </modules>
     <packaging>pom</packaging>
 
