@@ -8,13 +8,10 @@
     <artifactId>BusyBuzz</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>practice</module>
         <module>kafka</module>
         <module>spark</module>
-        <module>web</module>
         <module>hive</module>
         <module>hbase</module>
-        <module>net</module>
         <module>hadoop</module>
         <module>flink</module>
     </modules>
