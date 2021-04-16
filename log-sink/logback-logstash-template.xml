@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="30 seconds">
+
+    <property name="APP_ID" value="wechat" />
+    <property name="PATTERN_LAYOUT"
+              value="[%d{yyy-MM-dd HH:mm:ss:SSS}][%level][%thread][%logger{36}]-%msg%n" />
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="UTF-8">
+            <pattern>${PATTERN_LAYOUT}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="logstash-appender" class="am.ps.log.sink.logback.appender.LogstashAppender">
+        <profile>prod</profile>
+        <application>${APP_ID}</application>
+        <host>http://internal-logstash-internal-alb-1657386757.eu-west-1.elb.amazonaws.com</host>
+        <port>8001</port>
+        <endpoint>log_/app_log</endpoint>
+        <retryNum>1</retryNum>
+        <interval>500</interval>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="stdout" />
+        <appender-ref ref="logstash-appender" />
+    </root>
+</configuration>
